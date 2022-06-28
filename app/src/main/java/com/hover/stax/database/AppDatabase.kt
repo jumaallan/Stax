@@ -13,7 +13,7 @@ import com.hover.stax.channels.Channel
 import com.hover.stax.channels.ChannelDao
 import com.hover.stax.contacts.ContactDao
 import com.hover.stax.contacts.StaxContact
-import com.hover.stax.domain.model.Account
+import com.hover.stax.data.model.Account
 import com.hover.stax.merchants.Merchant
 import com.hover.stax.merchants.MerchantDao
 import com.hover.stax.paybill.Paybill

@@ -1,6 +1,6 @@
 package com.hover.stax.presentation.home
 
-import com.hover.stax.domain.model.Account
+import com.hover.stax.data.model.Account
 import com.hover.stax.domain.model.Bonus
 import com.hover.stax.domain.model.FinancialTip
 

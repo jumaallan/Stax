@@ -19,7 +19,7 @@ import androidx.recyclerview.selection.StorageStrategy
 import androidx.work.ExistingWorkPolicy
 import androidx.work.WorkManager
 import com.hover.stax.R
-import com.hover.stax.domain.model.Account
+import com.hover.stax.data.model.Account
 import com.hover.stax.accounts.AccountsAdapter
 import com.hover.stax.bonus.BonusViewModel
 import com.hover.stax.channels.Channel

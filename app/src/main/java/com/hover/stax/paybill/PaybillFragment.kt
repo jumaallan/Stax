@@ -180,7 +180,7 @@ class PaybillFragment : AbstractFormFragment(), PaybillIconsAdapter.IconSelectLi
     }
 
     private fun updateBiz(name: String?, no: String?) {
-        binding.editCard.businessNoInput.setMutlipartText(name, no)
+        binding.editCard.businessNoInput.setMultipartText(name, no)
         binding.summaryCard.recipient.setContent(name, no)
     }
 

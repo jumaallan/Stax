@@ -1,4 +1,4 @@
-package com.hover.stax.financialTips
+package com.hover.stax.presentation.financial_tips
 
 import android.view.LayoutInflater
 import android.view.ViewGroup

@@ -1,6 +1,6 @@
 package com.hover.stax.domain.repository
 
-import com.hover.stax.domain.model.Account
+import com.hover.stax.data.model.Account
 import com.hover.stax.channels.Channel
 import kotlinx.coroutines.flow.Flow
 

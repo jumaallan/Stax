@@ -2,16 +2,13 @@ package com.hover.stax.views
 
 import android.annotation.SuppressLint
 import android.content.Context
-import android.text.Editable
 import android.text.TextWatcher
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.view.MotionEvent
-import androidx.compose.material.Text
 import com.google.android.material.textfield.TextInputEditText
 import com.hover.stax.R
 import com.hover.stax.databinding.StaxTextInputBinding
-import timber.log.Timber
 
 
 class StaxTextInput(context: Context, attrs: AttributeSet) : AbstractStatefulInput(context, attrs) {
@@ -54,7 +51,7 @@ class StaxTextInput(context: Context, attrs: AttributeSet) : AbstractStatefulInp
         if (inputType > 0) binding?.inputEditText?.inputType = inputType
     }
 
-    fun setMutlipartText(text: String?, subtext: String?) {
+    fun setMultipartText(text: String?, subtext: String?) {
         if (text.isNullOrEmpty())
             setText(subtext)
         else if (subtext.isNullOrEmpty())
@@ -88,15 +85,6 @@ class StaxTextInput(context: Context, attrs: AttributeSet) : AbstractStatefulInp
     }
 
     fun addTextChangedListener(listener: TextWatcher) {
-//        textWatcher = object : TextWatcher {
-//            override fun beforeTextChanged(charSequence: CharSequence, i: Int, i1: Int, i2: Int) { listener.beforeTextChanged(charSequence, i, i1, i2)}
-//            override fun afterTextChanged(editable: Editable) { listener.afterTextChanged(editable)}
-//            override fun onTextChanged(charSequence: CharSequence, i: Int, i1: Int, i2: Int) {
-//                currentText = charSequence.toString()
-//                Timber.e("watcher for $hint got an update: %s", currentText)
-//                listener.onTextChanged(charSequence, i, i1, i2)
-//            }
-//        }
         editText?.addTextChangedListener(listener)
     }
 
@@ -106,8 +94,8 @@ class StaxTextInput(context: Context, attrs: AttributeSet) : AbstractStatefulInp
             if (event.action == MotionEvent.ACTION_DOWN && listener != null) {
                 listener.onClick(this)
                 true
-            }
-            false
+            } else
+                false
         }
     }
 }

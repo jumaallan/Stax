@@ -8,8 +8,7 @@ import androidx.lifecycle.MutableLiveData
 import com.hover.sdk.actions.HoverAction
 import com.hover.sdk.actions.HoverAction.*
 import com.hover.stax.R
-import com.hover.stax.domain.model.ACCOUNT_NAME
-import java.util.LinkedHashMap
+import com.hover.stax.data.model.ACCOUNT_NAME
 
 const val RECIPIENT_INSTITUTION = "recipientInstitution"
 
@@ -61,7 +60,7 @@ class ActionSelectViewModel(application: Application) : AndroidViewModel(applica
         nonStandardVariables.postValue(map)
     }
 
-     fun wrapExtras(): HashMap<String, String> {
-         return nonStandardVariables.value ?: hashMapOf()
-     }
+    fun wrapExtras(): HashMap<String, String> {
+        return nonStandardVariables.value ?: hashMapOf()
+    }
 }

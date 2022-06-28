@@ -8,10 +8,10 @@ import com.hover.stax.R
 import com.hover.stax.data.local.accounts.AccountRepo
 import com.hover.stax.contacts.ContactRepo
 import com.hover.stax.contacts.StaxContact
-import com.hover.stax.domain.model.Account
-import com.hover.stax.domain.model.PLACEHOLDER
-import com.hover.stax.schedules.ScheduleRepo
+import com.hover.stax.data.model.Account
+import com.hover.stax.data.model.PLACEHOLDER
 import com.hover.stax.schedules.Schedule
+import com.hover.stax.schedules.ScheduleRepo
 import com.hover.stax.transfers.AbstractFormViewModel
 import com.hover.stax.utils.DateUtils
 import kotlinx.coroutines.Dispatchers

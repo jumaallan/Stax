@@ -8,8 +8,8 @@ import com.hover.stax.actions.ActionRepo
 import com.hover.stax.channels.Channel
 import com.hover.stax.channels.ChannelRepo
 import com.hover.stax.data.local.accounts.AccountRepo
-import com.hover.stax.domain.model.Account
-import com.hover.stax.domain.model.PLACEHOLDER
+import com.hover.stax.data.model.Account
+import com.hover.stax.data.model.PLACEHOLDER
 import com.hover.stax.domain.repository.AccountRepository
 import com.hover.stax.notifications.PushNotificationTopicsInterface
 import com.hover.stax.utils.AnalyticsUtil
