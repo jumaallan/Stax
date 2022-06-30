@@ -190,6 +190,7 @@ dependencies {
     //di
     def koin_version= "3.2.0"
     implementation "io.insert-koin:koin-android:$koin_version"
+    testImplementation "io.insert-koin:koin-test:$koin_version"
 
     // Tests
     testImplementation 'junit:junit:4.13.2'
@@ -218,4 +219,5 @@ dependencies {
     testImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:1.6.1"
     testImplementation "io.mockk:mockk:1.11.0"
     testImplementation "io.mockk:mockk-android:1.11.0"
+    testImplementation "com.google.truth:truth:1.1.3"
 }
