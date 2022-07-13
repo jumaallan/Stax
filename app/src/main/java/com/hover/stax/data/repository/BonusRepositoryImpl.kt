@@ -11,17 +11,17 @@ import com.hover.stax.domain.repository.BonusRepository
 import com.hover.stax.utils.toHni
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.channelFlow
+import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.tasks.await
 import kotlinx.coroutines.withContext
 
 class BonusRepositoryImpl(private val bonusRepo: BonusRepo, private val channelRepo: ChannelRepo, private val coroutineDispatcher: CoroutineDispatcher) : BonusRepository {
 
-    private val settings = firestoreSettings { isPersistenceEnabled = true }
-    private val db = Firebase.firestore.also { it.firestoreSettings = settings }
-
     override suspend fun fetchBonuses() {
+        val settings = firestoreSettings { isPersistenceEnabled = true }
+        val db = Firebase.firestore.also { it.firestoreSettings = settings }
+
         val bonuses = db.collection("bonuses")
             .get()
             .await()
@@ -38,34 +38,22 @@ class BonusRepositoryImpl(private val bonusRepo: BonusRepo, private val channelR
         filterResults(bonuses)
     }
 
-    override suspend fun getBonusList(): Flow<List<Bonus>> = channelFlow {
+    override suspend fun getBonusList(): Flow<List<Bonus>> = flow {
         val simHnis = channelRepo.presentSims.map { it.osReportedHni }
 
         bonusRepo.bonuses.collect {
-            withContext(coroutineDispatcher) {
-                launch {
-                    val bonusChannels = getBonusChannels(it)
-                    val showBonuses = hasValidSim(simHnis, bonusChannels)
+            val bonusChannels = getBonusChannels(it)
+            val showBonuses = hasValidSim(simHnis, bonusChannels)
 
-                    if (showBonuses)
-                        send(it)
-                    else
-                        send(emptyList())
-                }
-            }
+            if (showBonuses)
+                emit(it)
+            else
+                emit(emptyList())
         }
     }
 
     override suspend fun saveBonuses(bonusList: List<Bonus>) {
         return bonusRepo.save(bonusList)
-    }
-
-    override suspend fun getBonusByPurchaseChannel(channelId: Int): Bonus? {
-        return bonusRepo.getBonusByPurchaseChannel(channelId)
-    }
-
-    override suspend fun getBonusByUserChannel(channelId: Int): Bonus? {
-        return bonusRepo.getBonusByUserChannel(channelId)
     }
 
     private suspend fun filterResults(bonuses: List<Bonus>) = withContext(coroutineDispatcher) {

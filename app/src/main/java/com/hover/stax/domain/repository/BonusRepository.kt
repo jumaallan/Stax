@@ -13,8 +13,4 @@ interface BonusRepository {
     suspend fun saveBonuses(bonusList: List<Bonus>)
 
     suspend fun getBonusChannels(bonusList: List<Bonus>): List<Channel>
-
-    suspend fun getBonusByPurchaseChannel(channelId: Int): Bonus?
-
-    suspend fun getBonusByUserChannel(channelId: Int): Bonus?
 }

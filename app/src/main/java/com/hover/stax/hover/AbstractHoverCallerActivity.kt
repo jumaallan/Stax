@@ -8,9 +8,12 @@ import com.hover.sdk.api.HoverParameters
 import com.hover.sdk.transactions.TransactionContract
 import com.hover.stax.R
 import com.hover.stax.data.model.Account
-import com.hover.stax.presentation.home.BalancesViewModel
 import com.hover.stax.home.NavHelper
-import com.hover.stax.notifications.PushNotificationTopicsInterface
+import com.hover.stax.notifications.PushNotificationsHelper.joinAllBountiesGroup
+import com.hover.stax.notifications.PushNotificationsHelper.joinBountyCountryGroup
+import com.hover.stax.notifications.PushNotificationsHelper.joinTransactionGroup
+import com.hover.stax.notifications.PushNotificationsHelper.leaveNoUsageGroup
+import com.hover.stax.presentation.home.BalancesViewModel
 import com.hover.stax.schedules.Schedule
 import com.hover.stax.utils.AnalyticsUtil
 import com.hover.stax.utils.DateUtils
@@ -31,7 +34,7 @@ const val FETCH_ACCOUNT_REQUEST = 205
 const val BOUNTY_REQUEST = 207
 const val FEE_REQUEST = 208
 
-abstract class AbstractHoverCallerActivity : AppCompatActivity(), PushNotificationTopicsInterface {
+abstract class AbstractHoverCallerActivity : AppCompatActivity() {
 
     private val balancesViewModel: BalancesViewModel by viewModel()
 

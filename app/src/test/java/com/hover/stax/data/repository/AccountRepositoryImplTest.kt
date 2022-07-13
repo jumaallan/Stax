@@ -1,6 +1,10 @@
 package com.hover.stax.data.repository
 
+import android.content.Context
+import com.google.android.gms.tasks.Task
 import com.google.common.truth.Truth.assertThat
+import com.google.firebase.messaging.FirebaseMessaging
+import com.google.firebase.messaging.FirebaseMessaging.getInstance
 import com.hover.stax.ApplicationInstance
 import com.hover.stax.actions.ActionRepo
 import com.hover.stax.channels.Channel
@@ -8,7 +12,7 @@ import com.hover.stax.channels.ChannelRepo
 import com.hover.stax.data.local.accounts.AccountRepo
 import com.hover.stax.data.model.Account
 import com.hover.stax.domain.repository.AccountRepository
-import com.hover.stax.notifications.PushNotificationTopicsInterface
+import com.hover.stax.notifications.PushNotificationsHelper
 import io.mockk.*
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.count
@@ -24,13 +28,16 @@ import org.koin.test.KoinTest
 
 
 @OptIn(ExperimentalCoroutinesApi::class)
-internal class AccountRepositoryImplTest: KoinTest {
+internal class AccountRepositoryImplTest : KoinTest {
 
     private lateinit var accountRepository: AccountRepository
 
     private lateinit var accountRepo: AccountRepo
     private lateinit var channelRepo: ChannelRepo
     private lateinit var actionRepo: ActionRepo
+
+    private lateinit var firebaseMessaging: FirebaseMessaging
+    private lateinit var context: Context
 
     private val accounts = listOf(
         Account("Stanbic", "#fefefe").apply { id = 1 },
@@ -64,6 +71,11 @@ internal class AccountRepositoryImplTest: KoinTest {
         actionRepo = mockk()
 
         accountRepository = AccountRepositoryImpl(accountRepo, channelRepo, actionRepo, StandardTestDispatcher())
+
+        firebaseMessaging = mockk()
+        context = mockk()
+
+//        every { context.getString(any(), any()) } answers { "aaa" }
     }
 
     @Test
@@ -94,21 +106,24 @@ internal class AccountRepositoryImplTest: KoinTest {
             androidContext(ApplicationInstance())
         }
 
-        val push = mockk<PushNotificationTopicsInterface>()
-
         coEvery { accountRepo.getDefaultAccountAsync() } returns accounts.first()
         every { actionRepo.getActions(channelId = any(), type = any()) } returns emptyList()
         every { channelRepo.update(channels = any()) } just runs
         coEvery { accountRepo.insert(accounts = any()) } returns accounts.map { it.id.toLong() }
 
-        every { push.joinChannelGroup(any(), any()) } just runs
+        mockkStatic("com.google.firebase.messaging.FirebaseMessaging")
+        every { getInstance() } returns firebaseMessaging
+
+//        with(mockk<Context>()) { every { Context.getString(any()) } returns "aaa" }
+        val subscribeToTopicTask = mockk<Task<Void>>()
+        every { firebaseMessaging.subscribeToTopic(any()) } returns subscribeToTopicTask
 
         val accountIds = accountRepository.createAccounts(channels)
 
         coVerify { accountRepo.getDefaultAccountAsync() }
         verify { actionRepo.getActions(channelId = any(), type = any()) }
         verify { channelRepo.update(channels = any()) }
-        verify { push.joinChannelGroup(any(), any()) }
+        verify { PushNotificationsHelper.joinChannelGroup(any(), any()) }
         coVerify { accountRepo.insert(accounts = any()) }
 
         assertThat(accountIds).contains(accounts.map { it.id.toLong() })

@@ -23,12 +23,14 @@ import com.hover.sdk.api.Hover
 import com.hover.stax.addChannels.ChannelsViewModel
 import com.hover.stax.channels.ImportChannelsWorker
 import com.hover.stax.channels.UpdateChannelsWorker
-import com.hover.stax.presentation.financial_tips.FinancialTipsFragment
 import com.hover.stax.home.MainActivity
 import com.hover.stax.hover.PERM_ACTIVITY
 import com.hover.stax.inapp_banner.BannerUtils
-import com.hover.stax.notifications.PushNotificationTopicsInterface
+import com.hover.stax.notifications.PushNotificationsHelper.joinAllNotifications
+import com.hover.stax.notifications.PushNotificationsHelper.joinNoRequestMoneyGroup
+import com.hover.stax.notifications.PushNotificationsHelper.joinNoUsageGroup
 import com.hover.stax.onboarding.OnBoardingActivity
+import com.hover.stax.presentation.financial_tips.FinancialTipsFragment
 import com.hover.stax.requests.REQUEST_LINK
 import com.hover.stax.schedules.ScheduleWorker
 import com.hover.stax.settings.BiometricChecker
@@ -48,7 +50,7 @@ const val FRAGMENT_DIRECT = "fragment_direct"
 const val FROM_FCM = "from_notification"
 const val VARIANT = "variant"
 
-class RoutingActivity : AppCompatActivity(), BiometricChecker.AuthListener, PushNotificationTopicsInterface {
+class RoutingActivity : AppCompatActivity(), BiometricChecker.AuthListener {
 
     private val channelsViewModel: ChannelsViewModel by viewModel()
     private lateinit var remoteConfig: FirebaseRemoteConfig
@@ -165,7 +167,7 @@ class RoutingActivity : AppCompatActivity(), BiometricChecker.AuthListener, Push
 
     }
 
-    private fun registerUXCamPushNotification(){
+    private fun registerUXCamPushNotification() {
         FirebaseMessaging.getInstance().token.addOnCompleteListener(OnCompleteListener { task ->
             if (!task.isSuccessful) {
                 return@OnCompleteListener
