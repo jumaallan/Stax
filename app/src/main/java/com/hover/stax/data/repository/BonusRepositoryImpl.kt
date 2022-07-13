@@ -11,6 +11,7 @@ import com.hover.stax.domain.repository.BonusRepository
 import com.hover.stax.utils.toHni
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.channelFlow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.tasks.await
@@ -38,17 +39,21 @@ class BonusRepositoryImpl(private val bonusRepo: BonusRepo, private val channelR
         filterResults(bonuses)
     }
 
-    override suspend fun getBonusList(): Flow<List<Bonus>> = flow {
+    override suspend fun getBonusList(): Flow<List<Bonus>> = channelFlow {
         val simHnis = channelRepo.presentSims.map { it.osReportedHni }
 
         bonusRepo.bonuses.collect {
-            val bonusChannels = getBonusChannels(it)
-            val showBonuses = hasValidSim(simHnis, bonusChannels)
+            withContext(coroutineDispatcher) {
+                launch {
+                    val bonusChannels = getBonusChannels(it)
+                    val showBonuses = hasValidSim(simHnis, bonusChannels)
 
-            if (showBonuses)
-                emit(it)
-            else
-                emit(emptyList())
+                    if (showBonuses)
+                        send(it)
+                    else
+                        send(emptyList())
+                }
+            }
         }
     }
 
