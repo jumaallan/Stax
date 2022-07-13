@@ -5,9 +5,9 @@ import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.hover.stax.R
-import com.hover.stax.data.local.accounts.AccountRepo
 import com.hover.stax.contacts.ContactRepo
 import com.hover.stax.contacts.StaxContact
+import com.hover.stax.data.local.accounts.AccountRepo
 import com.hover.stax.data.model.Account
 import com.hover.stax.data.model.PLACEHOLDER
 import com.hover.stax.schedules.Schedule
@@ -18,12 +18,13 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import java.util.*
 
-class NewRequestViewModel(application: Application, val repo: RequestRepo, val accountRepo: AccountRepo, contactRepo: ContactRepo, scheduleRepo: ScheduleRepo) : AbstractFormViewModel(application, contactRepo, scheduleRepo) {
+class NewRequestViewModel(application: Application, val repo: RequestRepo, val accountRepo: AccountRepo, contactRepo: ContactRepo, scheduleRepo: ScheduleRepo)
+    : AbstractFormViewModel(application, contactRepo, scheduleRepo) {
 
     val activeAccount = MutableLiveData<Account?>()
     val amount = MutableLiveData<String?>()
     private val requestees = MutableLiveData<List<StaxContact>>(Collections.singletonList(StaxContact("")))
-    val requestee = MutableLiveData<StaxContact>()
+    val requestee = MutableLiveData<StaxContact?>()
     var requesterNumber = MediatorLiveData<String>()
     val note = MutableLiveData<String?>()
 
@@ -88,8 +89,11 @@ class NewRequestViewModel(application: Application, val repo: RequestRepo, val a
 
     fun createRequest() {
         saveContacts()
-        val request = Request(amount.value, note.value, requesterNumber.value, activeAccount.value!!.institutionId!!)
-        formulatedRequest.value = request
+        
+        activeAccount.value?.let {
+            val request = Request(amount.value, note.value, requesterNumber.value, it.institutionId!!)
+            formulatedRequest.value = request
+        }
     }
 
     fun saveRequest() {

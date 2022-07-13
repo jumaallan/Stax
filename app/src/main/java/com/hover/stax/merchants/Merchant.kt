@@ -56,6 +56,6 @@ data class Merchant(
 	}
 
 	fun hasName(): Boolean {
-		return businessName != null && !businessName!!.isEmpty()
+		return businessName != null && businessName!!.isNotEmpty()
 	}
 }

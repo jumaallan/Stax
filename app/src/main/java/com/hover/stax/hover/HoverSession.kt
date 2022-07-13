@@ -113,7 +113,6 @@ class HoverSession private constructor(b: Builder) {
 
         init {
             requireNotNull(a) { "Action must not be null" }
-            requireNotNull(c) { "Account must not be null" }
             this.activity = activity
             account = c
             action = a

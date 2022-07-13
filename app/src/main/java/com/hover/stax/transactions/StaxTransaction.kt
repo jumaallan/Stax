@@ -106,13 +106,12 @@ data class StaxTransaction(
 	}
 
 	private fun getCounterPartyNo(intent: Intent, contact: StaxContact?): String? {
-		return if (contact != null)
-			contact.accountNumber
-		else if (intent.hasExtra(HoverAction.ACCOUNT_KEY))
-			intent.getStringExtra(HoverAction.ACCOUNT_KEY)
-		else if (intent.hasExtra(BUSINESS_NO))
-			intent.getStringExtra(BUSINESS_NO)
-		else null
+		return when {
+			contact != null -> contact.accountNumber
+			intent.hasExtra(HoverAction.ACCOUNT_KEY) -> intent.getStringExtra(HoverAction.ACCOUNT_KEY)
+			intent.hasExtra(BUSINESS_NO) -> intent.getStringExtra(BUSINESS_NO)
+			else -> null
+		}
 	}
 
 	fun update(data: Intent, action: HoverAction, contact: StaxContact, context: Context) {
