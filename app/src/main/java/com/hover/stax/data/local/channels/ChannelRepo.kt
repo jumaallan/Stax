@@ -18,29 +18,19 @@ class ChannelRepo(db: AppDatabase, sdkDb: HoverRoomDatabase) {
 
     val publishedChannels: LiveData<List<Channel>> = channelDao.publishedChannels
 
-    val selected: LiveData<List<Channel>> = channelDao.getSelected(true)
+    suspend fun getChannel(id: Int): Channel? = channelDao.getChannel(id)
 
-    fun getChannel(id: Int): Channel? {
-        return channelDao.getChannel(id)
-    }
+    fun getLiveChannel(id: Int): LiveData<Channel> = channelDao.getLiveChannel(id)
 
-    fun getLiveChannel(id: Int): LiveData<Channel> {
-        return channelDao.getLiveChannel(id)
-    }
+    suspend fun getChannelsByIds(ids: List<Int>): List<Channel> = channelDao.getChannelsByIds(ids)
 
-    fun getChannelsByIds(ids: List<Int>): List<Channel> = channelDao.getChannelsByIds(ids)
+    suspend fun getChannelsByCountry(channelIds: IntArray, countryCode: String): List<Channel> = channelDao.getChannels(countryCode, channelIds)
 
-    fun getChannelsByIdsAsync(ids: List<Int>): List<Channel> = channelDao.getChannelsByIds(ids)
+    suspend fun getChannelsByCountry(countryCode: String): List<Channel> = channelDao.getChannels(countryCode.uppercase())
 
-    fun getChannelsByCountry(channelIds: IntArray, countryCode: String): List<Channel> = channelDao.getChannels(countryCode, channelIds)
+    suspend fun update(channel: Channel) = channelDao.update(channel)
 
-    fun getChannelsByCountry(countryCode: String): List<Channel> {
-        return channelDao.getChannels(countryCode.uppercase())
-    }
+    suspend fun insert(channel: Channel) = channelDao.insert(channel)
 
-    fun update(channel: Channel) = channelDao.update(channel)
-
-    fun insert(channel: Channel) = channelDao.insert(channel)
-
-    fun update(channels: List<Channel>) = channelDao.updateAll(channels)
+    suspend fun update(channels: List<Channel>) = channelDao.updateAll(channels)
 }

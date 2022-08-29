@@ -14,7 +14,7 @@ import androidx.work.WorkManager
 import com.hover.sdk.actions.HoverAction
 import com.hover.sdk.api.Hover
 import com.hover.stax.R
-import com.hover.stax.channels.UpdateChannelsWorker
+import com.hover.stax.data.remote.workers.UpdateChannelsWorker
 import com.hover.stax.data.remote.workers.UpdateBountyTransactionsWorker
 import com.hover.stax.databinding.FragmentBountyListBinding
 import com.hover.stax.domain.model.Bounty

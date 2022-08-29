@@ -96,6 +96,5 @@ class AccountDetailViewModel(val application: Application, val repo: AccountRepo
             }
 
         channelRepo.update(channelsToUpdate.toList())
-
     }
 }

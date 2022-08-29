@@ -1,4 +1,4 @@
-package com.hover.stax.channels
+package com.hover.stax.data.remote.workers
 
 import android.app.Notification
 import android.app.NotificationChannel
@@ -11,10 +11,12 @@ import com.hover.stax.BuildConfig
 import com.hover.stax.R
 import com.hover.stax.data.local.channels.ChannelDao
 import com.hover.stax.database.AppDatabase
+import com.hover.stax.domain.repository.ChannelRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import org.json.JSONArray
 import org.json.JSONObject
+import org.koin.androidx.compose.inject
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
 import timber.log.Timber
@@ -25,6 +27,7 @@ class ImportChannelsWorker(val context: Context, params: WorkerParameters) : Cor
     private var channelDao: ChannelDao? = null
 
     private val db: AppDatabase by inject()
+    private val channelRepository: ChannelRepository by inject()
 
     init {
         channelDao = db.channelDao()
@@ -41,7 +44,7 @@ class ImportChannelsWorker(val context: Context, params: WorkerParameters) : Cor
             parseChannelJson()?.let {
                 val channelsJson = JSONObject(it)
                 val data: JSONArray = channelsJson.getJSONArray("data")
-                ChannelUtil.updateChannels(data, applicationContext)
+                channelRepository.updateChannels(data)
 
                 Timber.i("Channels imported successfully")
                 Result.success()

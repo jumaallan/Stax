@@ -18,22 +18,19 @@ interface ChannelDao {
     fun getSelected(selected: Boolean): LiveData<List<Channel>>
 
     @Query("SELECT * FROM channels WHERE id IN (:channel_ids) ORDER BY name ASC")
-    fun getChannelsByIds(channel_ids: List<Int>): List<Channel>
+    suspend fun getChannelsByIds(channel_ids: List<Int>): List<Channel>
 
     @Query("SELECT * FROM channels WHERE id IN (:channel_ids) ORDER BY name ASC")
     fun getChannels(channel_ids: IntArray): LiveData<List<Channel>>
 
     @Query("SELECT * FROM channels WHERE country_alpha2 = :countryCode ORDER BY name ASC")
-    fun getChannels(countryCode: String): List<Channel>
-
-//    @Query("SELECT * FROM channels WHERE country_alpha2 = :countryCode AND id IN (:channel_ids) ORDER BY name ASC")
-//    fun getChannels(countryCode: String, channel_ids: IntArray): LiveData<List<Channel>>
+    suspend fun getChannels(countryCode: String): List<Channel>
 
     @Query("SELECT * FROM channels WHERE country_alpha2 = :countryCode AND id IN (:channel_ids) ORDER BY name ASC")
-    fun getChannels(countryCode: String, channel_ids: IntArray): List<Channel>
+    suspend fun getChannels(countryCode: String, channel_ids: IntArray): List<Channel>
 
     @Query("SELECT * FROM channels WHERE id = :id LIMIT 1")
-    fun getChannel(id: Int): Channel?
+    suspend fun getChannel(id: Int): Channel?
 
     @Query("SELECT * FROM channels WHERE id = :id LIMIT 1")
     fun getLiveChannel(id: Int): LiveData<Channel>
@@ -53,21 +50,21 @@ interface ChannelDao {
     val dataCount: Int
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
-    fun insertAll(vararg channels: Channel?)
+    suspend fun insertAll(vararg channels: Channel?)
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insert(channel: Channel?)
+    suspend fun insert(channel: Channel?)
 
     @Update
-    fun update(channel: Channel)
+    suspend fun update(channel: Channel)
 
     @Update
-    fun updateAll(channel: List<Channel>)
+    suspend fun updateAll(channel: List<Channel>)
 
     @Delete
-    fun delete(channel: Channel)
+    suspend fun delete(channel: Channel)
 
     @Query("DELETE FROM channels")
-    fun deleteAll()
+    suspend fun deleteAll()
 
 }

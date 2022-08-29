@@ -9,4 +9,5 @@ data class FinancialTip(
     val shareCopy: String?,
     val deepLink: String?
 )
-val FINANCIAL_TIP_ID = "id"
+
+const val FINANCIAL_TIP_ID = "id"

@@ -94,21 +94,7 @@ public class Channel implements Comparable<Channel> {
         update(jsonObject, rootUrl);
     }
 
-    public static List<Channel> sort(List<Channel> channels, boolean showSelected) {
-        ArrayList<Channel> selected_list = new ArrayList<>();
-        ArrayList<Channel> sorted_list = new ArrayList<>();
-        for (Channel c : channels) {
-            if (c.selected) selected_list.add(c);
-            else sorted_list.add(c);
-        }
-        Collections.sort(selected_list);
-        Collections.sort(sorted_list);
-        if (showSelected)
-            sorted_list.addAll(0, selected_list);
-        return sorted_list;
-    }
-
-    Channel update(JSONObject jsonObject, String rootUrl) {
+    public Channel update(JSONObject jsonObject, String rootUrl) {
         try {
             id = jsonObject.getInt("id");
             name = jsonObject.getString("name");

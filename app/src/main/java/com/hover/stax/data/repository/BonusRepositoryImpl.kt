@@ -90,5 +90,5 @@ class BonusRepositoryImpl(private val bonusRepo: BonusRepo, private val channelR
         return hniList.isNotEmpty()
     }
 
-    override suspend fun getBonusChannels(bonusList: List<Bonus>): List<Channel> = channelRepo.getChannelsByIdsAsync(bonusList.map { it.purchaseChannel })
+    override suspend fun getBonusChannels(bonusList: List<Bonus>): List<Channel> = channelRepo.getChannelsByIds(bonusList.map { it.purchaseChannel })
 }
