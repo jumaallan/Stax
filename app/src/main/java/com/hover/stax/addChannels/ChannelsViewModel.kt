@@ -35,7 +35,7 @@ import kotlinx.coroutines.channels.Channel as KChannel
 class ChannelsViewModel(application: Application, val repo: ChannelRepo, val accountRepo: AccountRepo, val actionRepo: ActionRepo, private val bonusRepo: BonusRepo) : AndroidViewModel(application) {
 
     val accounts: LiveData<List<Account>> = accountRepo.getAllLiveAccounts()
-    val allChannels: LiveData<List<Channel>> = repo.publishedChannels
+//    val allChannels: LiveData<List<Channel>> = repo.publishedChannels
 
     var sims = MutableLiveData<List<SimInfo>>()
     var simCountryList: LiveData<List<String>> = MutableLiveData()

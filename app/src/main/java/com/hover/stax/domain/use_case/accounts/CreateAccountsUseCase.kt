@@ -8,4 +8,6 @@ class CreateAccountsUseCase(private val accountsRepository: AccountRepository) {
     suspend operator fun invoke(channels: List<Channel>): List<Long> {
         return accountsRepository.createAccounts(channels)
     }
+
+    suspend fun createAccount(channelId: Int): Long = accountsRepository.createAccount(channelId)
 }

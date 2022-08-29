@@ -62,6 +62,10 @@ class AccountRepositoryImpl(val accountRepo: AccountRepo, val channelRepo: Chann
         }
     }
 
+    override suspend fun getAccount(accountId: Int): Account? = accountRepo.getAccount(accountId)
+
+    override suspend fun getAccountsByChannel(channelId: Int): List<Account> = accountRepo.getAccountsByChannel(channelId)
+
     private fun getFetchAccountAction(channelId: Int): HoverAction? = actionRepo.getActions(channelId, HoverAction.FETCH_ACCOUNTS).firstOrNull()
 
     private fun logChoice(account: Account) {

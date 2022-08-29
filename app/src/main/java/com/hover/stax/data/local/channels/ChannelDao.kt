@@ -4,12 +4,13 @@ import androidx.lifecycle.LiveData
 import androidx.room.*
 import com.hover.stax.accounts.ChannelWithAccounts
 import com.hover.stax.domain.model.Channel
+import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface ChannelDao {
 
     @get:Query("SELECT * FROM channels WHERE published = 1 ORDER BY isFavorite DESC, name ASC")
-    val publishedChannels: LiveData<List<Channel>>
+    val publishedChannels: Flow<List<Channel>>
 
     @get:Query("SELECT * FROM channels ORDER BY name ASC")
     val allChannels: LiveData<List<Channel>>
@@ -25,6 +26,9 @@ interface ChannelDao {
 
     @Query("SELECT * FROM channels WHERE country_alpha2 = :countryCode ORDER BY name ASC")
     suspend fun getChannels(countryCode: String): List<Channel>
+
+    @Query("SELECT * FROM channels WHERE country_alpha2 in (:countryCodes) ORDER BY name ASC")
+    suspend fun getChannels(countryCodes: List<String>): List<Channel>
 
     @Query("SELECT * FROM channels WHERE country_alpha2 = :countryCode AND id IN (:channel_ids) ORDER BY name ASC")
     suspend fun getChannels(countryCode: String, channel_ids: IntArray): List<Channel>

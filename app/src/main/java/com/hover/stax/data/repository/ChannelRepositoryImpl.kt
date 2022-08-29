@@ -8,6 +8,7 @@ import com.hover.stax.domain.model.Channel
 import com.hover.stax.countries.CountryAdapter
 import com.hover.stax.data.local.channels.ChannelRepo
 import com.hover.stax.domain.repository.ChannelRepository
+import kotlinx.coroutines.flow.Flow
 import org.json.JSONArray
 
 private const val MAX_LOOKUP_COUNT = 40
@@ -19,6 +20,8 @@ class ChannelRepositoryImpl(val channelRepo: ChannelRepo, val context: Context) 
     override suspend fun getChannelsByIds(ids: List<Int>): List<Channel> = channelRepo.getChannelsByIds(ids)
 
     override suspend fun getChannelsByCountryCode(ids: IntArray, countryCode: String): List<Channel> = channelRepo.getChannelsByCountry(ids, countryCode)
+
+    override suspend fun getChannelsByCountry(countryCodes: List<String>): List<Channel> { return channelRepo.getChannelsByCountry(countryCodes) }
 
     override suspend fun filterChannels(countryCode: String, actions: List<HoverAction>): List<Channel> {
         val ids = actions.asSequence().distinctBy { it.channel_id }.map { it.channel_id }.toList()
@@ -38,6 +41,11 @@ class ChannelRepositoryImpl(val channelRepo: ChannelRepo, val context: Context) 
             } else channelRepo.update(channel.update(data.getJSONObject(j).getJSONObject("attributes"), context.getString(R.string.root_url)))
         }
     }
+
+    override suspend fun updateChannel(channel: Channel) = channelRepo.update(channel)
+
+    override val publishedChannels: Flow<List<Channel>>
+        get() = channelRepo.publishedChannels
 
     private suspend fun getChunkedChannelsByIds(ids: List<Int>): List<Channel> {
         val channels = mutableListOf<Channel>()

@@ -160,14 +160,6 @@ object Utils {
         return false
     }
 
-    fun setFirebaseMessagingTopic(topic: String?) {
-        FirebaseMessaging.getInstance().subscribeToTopic(topic!!)
-    }
-
-    fun removeFirebaseMessagingTopic(topic: String?) {
-        FirebaseMessaging.getInstance().unsubscribeFromTopic(topic!!)
-    }
-
     @JvmStatic
     fun showSoftKeyboard(context: Context, view: View) {
         if (view.requestFocus()) {

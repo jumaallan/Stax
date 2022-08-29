@@ -10,5 +10,11 @@ interface AccountRepository {
 
     suspend fun createAccounts(channels: List<Channel>): List<Long>
 
+    suspend fun createAccount(channelId: Int): Long
+
     suspend fun setDefaultAccount(account: Account)
+
+    suspend fun getAccount(accountId: Int): Account?
+
+    suspend fun getAccountsByChannel(channelId: Int): List<Account>
 }

@@ -6,6 +6,7 @@ import com.hover.sdk.sims.SimInfo
 import com.hover.sdk.sims.SimInfoDao
 import com.hover.stax.domain.model.Channel
 import com.hover.stax.database.AppDatabase
+import kotlinx.coroutines.flow.Flow
 
 class ChannelRepo(db: AppDatabase, sdkDb: HoverRoomDatabase) {
 
@@ -16,7 +17,7 @@ class ChannelRepo(db: AppDatabase, sdkDb: HoverRoomDatabase) {
     val presentSims: List<SimInfo>
         get() = simDao.present
 
-    val publishedChannels: LiveData<List<Channel>> = channelDao.publishedChannels
+    val publishedChannels: Flow<List<Channel>> = channelDao.publishedChannels
 
     suspend fun getChannel(id: Int): Channel? = channelDao.getChannel(id)
 
@@ -27,6 +28,8 @@ class ChannelRepo(db: AppDatabase, sdkDb: HoverRoomDatabase) {
     suspend fun getChannelsByCountry(channelIds: IntArray, countryCode: String): List<Channel> = channelDao.getChannels(countryCode, channelIds)
 
     suspend fun getChannelsByCountry(countryCode: String): List<Channel> = channelDao.getChannels(countryCode.uppercase())
+
+    suspend fun getChannelsByCountry(countryCodes: List<String>): List<Channel> = channelDao.getChannels(countryCodes)
 
     suspend fun update(channel: Channel) = channelDao.update(channel)
 

@@ -15,13 +15,13 @@ class AccountRepo(db: AppDatabase) {
 
     fun getAccountsCount(): Int = accountDao.getDataCount()
 
-    fun getAccountsByChannel(channelId: Int): List<Account> = accountDao.getAccountsByChannel(channelId)
+    suspend fun getAccountsByChannel(channelId: Int): List<Account> = accountDao.getAccountsByChannel(channelId)
 
     fun getDefaultAccount(): Account? = accountDao.getDefaultAccount()
 
     suspend fun getDefaultAccountAsync(): Account? = accountDao.getDefaultAccountAsync()
 
-    fun getAccount(id: Int): Account? = accountDao.getAccount(id)
+    suspend fun getAccount(id: Int): Account? = accountDao.getAccount(id)
 
     fun getLiveAccount(id: Int?): LiveData<Account> = accountDao.getLiveAccount(id)
 

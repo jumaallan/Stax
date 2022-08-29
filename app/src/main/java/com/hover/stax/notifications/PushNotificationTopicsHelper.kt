@@ -5,8 +5,6 @@ import com.google.firebase.messaging.FirebaseMessaging
 import com.hover.stax.R
 import com.hover.stax.utils.Utils.alterFirebaseTopicState
 import com.hover.stax.utils.Utils.isFirebaseTopicInDefaultState
-import com.hover.stax.utils.Utils.removeFirebaseMessagingTopic
-import com.hover.stax.utils.Utils.setFirebaseMessagingTopic
 
 object PushNotificationTopicsHelper {
 
@@ -54,5 +52,13 @@ object PushNotificationTopicsHelper {
     fun leaveNoUsageGroup(c: Context) {
         removeFirebaseMessagingTopic(c.getString(R.string.firebase_topic_no_usage_activity))
         alterFirebaseTopicState(c.getString(R.string.firebase_topic_no_usage_activity), c)
+    }
+
+    fun setFirebaseMessagingTopic(topic: String) {
+        FirebaseMessaging.getInstance().subscribeToTopic(topic)
+    }
+
+    fun removeFirebaseMessagingTopic(topic: String) {
+        FirebaseMessaging.getInstance().unsubscribeFromTopic(topic)
     }
 }

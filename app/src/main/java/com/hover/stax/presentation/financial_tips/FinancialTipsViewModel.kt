@@ -11,7 +11,6 @@ import kotlinx.coroutines.flow.onEach
 
 class FinancialTipsViewModel(private val tipsUseCase: TipsUseCase) : ViewModel() {
 
-
     private val _tipsState = MutableStateFlow(FinancialTipsState())
     val tipsState = _tipsState.asStateFlow()
 

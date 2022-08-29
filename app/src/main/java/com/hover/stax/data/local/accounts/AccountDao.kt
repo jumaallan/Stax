@@ -15,7 +15,7 @@ interface AccountDao {
     fun getLiveAccounts(): LiveData<List<Account>>
 
     @Query("SELECT * FROM accounts WHERE channelId = :channelId ORDER BY alias ASC")
-    fun getAccountsByChannel(channelId: Int): List<Account>
+    suspend fun getAccountsByChannel(channelId: Int): List<Account>
 
     @Query("SELECT * FROM accounts WHERE institutionId = :institutionId ORDER BY alias ASC")
     fun getAccountsByInstitution(institutionId: Int): LiveData<List<Account>>
@@ -27,7 +27,7 @@ interface AccountDao {
     fun getAccount(name: String, channelId: Int): Account?
 
     @Query("SELECT * FROM accounts where id = :id")
-    fun getAccount(id: Int): Account?
+    suspend fun getAccount(id: Int): Account?
 
     @Query("SELECT * FROM accounts where name = :name")
     fun getAccount(name: String): Account?
