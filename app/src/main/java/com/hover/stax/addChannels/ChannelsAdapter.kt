@@ -5,7 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.selection.SelectionTracker
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
-import com.hover.stax.channels.Channel
+import com.hover.stax.domain.model.Channel
 import com.hover.stax.channels.ChannelViewHolder
 import com.hover.stax.databinding.StaxSpinnerItemWithLogoBinding
 

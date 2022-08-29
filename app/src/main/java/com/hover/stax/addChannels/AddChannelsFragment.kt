@@ -22,7 +22,7 @@ import com.hover.sdk.sims.SimInfo
 import com.hover.stax.R
 import com.hover.stax.domain.model.Account
 import com.hover.stax.bonus.BonusViewModel
-import com.hover.stax.channels.Channel
+import com.hover.stax.domain.model.Channel
 import com.hover.stax.data.remote.workers.UpdateChannelsWorker
 import com.hover.stax.countries.CountryAdapter
 import com.hover.stax.databinding.FragmentAddChannelsBinding

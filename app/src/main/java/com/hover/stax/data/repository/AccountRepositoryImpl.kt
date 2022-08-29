@@ -5,13 +5,13 @@ import com.hover.sdk.actions.HoverAction
 import com.hover.sdk.api.ActionApi
 import com.hover.stax.R
 import com.hover.stax.data.local.actions.ActionRepo
-import com.hover.stax.channels.Channel
+import com.hover.stax.domain.model.Channel
 import com.hover.stax.data.local.channels.ChannelRepo
 import com.hover.stax.data.local.accounts.AccountRepo
 import com.hover.stax.domain.model.Account
 import com.hover.stax.domain.model.PLACEHOLDER
 import com.hover.stax.domain.repository.AccountRepository
-import com.hover.stax.notifications.PushNotificationTopicsInterface
+import com.hover.stax.notifications.PushNotificationTopicsHelper.joinChannelGroup
 import com.hover.stax.utils.AnalyticsUtil
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.Flow
@@ -21,7 +21,7 @@ import org.json.JSONObject
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
 
-class AccountRepositoryImpl(val accountRepo: AccountRepo, val channelRepo: ChannelRepo, val actionRepo: ActionRepo, private val coroutineDispatcher: CoroutineDispatcher) : AccountRepository, PushNotificationTopicsInterface, KoinComponent {
+class AccountRepositoryImpl(val accountRepo: AccountRepo, val channelRepo: ChannelRepo, val actionRepo: ActionRepo, private val coroutineDispatcher: CoroutineDispatcher) : AccountRepository, KoinComponent {
 
     private val context: Context by inject()
 

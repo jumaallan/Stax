@@ -1,4 +1,4 @@
-package com.hover.stax.channels;
+package com.hover.stax.domain.model;
 
 import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
@@ -7,10 +7,6 @@ import androidx.room.PrimaryKey;
 
 import org.json.JSONException;
 import org.json.JSONObject;
-
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
 
 import timber.log.Timber;
 

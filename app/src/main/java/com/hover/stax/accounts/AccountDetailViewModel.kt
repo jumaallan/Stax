@@ -4,7 +4,7 @@ import android.app.Application
 import androidx.lifecycle.*
 import com.hover.sdk.actions.HoverAction
 import com.hover.stax.data.local.actions.ActionRepo
-import com.hover.stax.channels.Channel
+import com.hover.stax.domain.model.Channel
 import com.hover.stax.data.local.channels.ChannelRepo
 import com.hover.stax.data.local.accounts.AccountRepo
 import com.hover.stax.domain.model.Account

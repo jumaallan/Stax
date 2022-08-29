@@ -8,7 +8,7 @@ import com.hover.stax.utils.Utils.isFirebaseTopicInDefaultState
 import com.hover.stax.utils.Utils.removeFirebaseMessagingTopic
 import com.hover.stax.utils.Utils.setFirebaseMessagingTopic
 
-interface PushNotificationTopicsInterface {
+object PushNotificationTopicsHelper {
 
     fun joinAllNotifications(c: Context) {
         setFirebaseMessagingTopic(c.getString(R.string.firebase_topic_everyone))

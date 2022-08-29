@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.hover.stax.R
-import com.hover.stax.channels.Channel
+import com.hover.stax.domain.model.Channel
 import com.hover.stax.databinding.LibraryListItemBinding
 import com.hover.stax.utils.Utils
 
@@ -36,7 +36,7 @@ class LibraryChannelsAdapter(private val favoriteClickInterface: FavoriteClickIn
         }
     }
 
-    private fun setFavoriteIcon(favoriteImage: ImageView, channel: Channel ) {
+    private fun setFavoriteIcon(favoriteImage: ImageView, channel: Channel) {
         setFavColorIcon(favoriteImage, channel)
 
         favoriteImage.setOnClickListener {

@@ -17,7 +17,9 @@ import com.hover.stax.contacts.ContactInput
 import com.hover.stax.contacts.StaxContact
 import com.hover.stax.databinding.FragmentRequestBinding
 import com.hover.stax.domain.model.Account
-import com.hover.stax.notifications.PushNotificationTopicsInterface
+import com.hover.stax.notifications.PushNotificationTopicsHelper.joinRequestMoneyGroup
+import com.hover.stax.notifications.PushNotificationTopicsHelper.leaveNoRequestMoneyGroup
+import com.hover.stax.notifications.PushNotificationTopicsHelper.leaveNoUsageGroup
 import com.hover.stax.transfers.AbstractFormFragment
 import com.hover.stax.utils.AnalyticsUtil
 import com.hover.stax.utils.Utils
@@ -26,7 +28,7 @@ import org.koin.androidx.viewmodel.ext.android.getSharedViewModel
 import timber.log.Timber
 
 
-class NewRequestFragment : AbstractFormFragment(), PushNotificationTopicsInterface, RequestSenderInterface {
+class NewRequestFragment : AbstractFormFragment(), RequestSenderInterface {
 
     private lateinit var requestViewModel: NewRequestViewModel
 

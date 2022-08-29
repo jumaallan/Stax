@@ -13,15 +13,15 @@ import com.hover.sdk.api.ActionApi
 import com.hover.sdk.api.Hover
 import com.hover.sdk.sims.SimInfo
 import com.hover.stax.R
-import com.hover.stax.channels.Channel
 import com.hover.stax.countries.CountryAdapter
 import com.hover.stax.data.local.accounts.AccountRepo
 import com.hover.stax.data.local.actions.ActionRepo
 import com.hover.stax.data.local.bonus.BonusRepo
 import com.hover.stax.data.local.channels.ChannelRepo
 import com.hover.stax.domain.model.Account
+import com.hover.stax.domain.model.Channel
 import com.hover.stax.domain.model.PLACEHOLDER
-import com.hover.stax.notifications.PushNotificationTopicsInterface
+import com.hover.stax.notifications.PushNotificationTopicsHelper.joinChannelGroup
 import com.hover.stax.utils.AnalyticsUtil
 import com.hover.stax.utils.Utils
 import kotlinx.coroutines.Dispatchers
@@ -32,8 +32,7 @@ import kotlinx.coroutines.launch
 import org.json.JSONObject
 import kotlinx.coroutines.channels.Channel as KChannel
 
-class ChannelsViewModel(application: Application, val repo: ChannelRepo, val accountRepo: AccountRepo, val actionRepo: ActionRepo, private val bonusRepo: BonusRepo) : AndroidViewModel(application),
-    PushNotificationTopicsInterface {
+class ChannelsViewModel(application: Application, val repo: ChannelRepo, val accountRepo: AccountRepo, val actionRepo: ActionRepo, private val bonusRepo: BonusRepo) : AndroidViewModel(application) {
 
     val accounts: LiveData<List<Account>> = accountRepo.getAllLiveAccounts()
     val allChannels: LiveData<List<Channel>> = repo.publishedChannels

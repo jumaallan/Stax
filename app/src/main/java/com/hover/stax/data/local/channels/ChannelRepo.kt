@@ -4,7 +4,7 @@ import androidx.lifecycle.LiveData
 import com.hover.sdk.database.HoverRoomDatabase
 import com.hover.sdk.sims.SimInfo
 import com.hover.sdk.sims.SimInfoDao
-import com.hover.stax.channels.Channel
+import com.hover.stax.domain.model.Channel
 import com.hover.stax.database.AppDatabase
 
 class ChannelRepo(db: AppDatabase, sdkDb: HoverRoomDatabase) {

@@ -1,9 +1,8 @@
 package com.hover.stax.data.repository
 
-import androidx.lifecycle.LiveData
 import com.hover.sdk.actions.HoverAction
 import com.hover.sdk.sims.SimInfo
-import com.hover.stax.channels.Channel
+import com.hover.stax.domain.model.Channel
 import com.hover.stax.countries.CountryAdapter
 import com.hover.stax.data.local.actions.ActionRepo
 import com.hover.stax.domain.model.Bounty

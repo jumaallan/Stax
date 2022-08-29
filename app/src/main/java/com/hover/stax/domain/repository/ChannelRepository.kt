@@ -1,15 +1,13 @@
 package com.hover.stax.domain.repository
 
-import android.content.Context
 import com.hover.sdk.actions.HoverAction
 import com.hover.sdk.sims.SimInfo
-import com.hover.stax.channels.Channel
-import kotlinx.coroutines.flow.Flow
+import com.hover.stax.domain.model.Channel
 import org.json.JSONArray
 
 interface ChannelRepository {
 
-    val presentSims: List<SimInfo>
+    suspend fun presentSims(): List<SimInfo>
 
     suspend fun getChannelsByIds(ids: List<Int>): List<Channel>
 

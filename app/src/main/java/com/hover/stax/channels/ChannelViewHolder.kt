@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.google.android.material.checkbox.MaterialCheckBox
 import com.hover.stax.databinding.StaxSpinnerItemWithLogoBinding
+import com.hover.stax.domain.model.Channel
 import com.hover.stax.utils.UIHelper.loadImage
 
 class ChannelViewHolder(val binding: StaxSpinnerItemWithLogoBinding) : RecyclerView.ViewHolder(binding.root) {

@@ -1,7 +1,6 @@
 package com.hover.stax.domain.model
 
 import androidx.room.*
-import com.hover.stax.channels.Channel
 import com.hover.stax.utils.DateUtils.now
 import timber.log.Timber
 

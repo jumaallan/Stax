@@ -13,7 +13,6 @@ import com.hover.stax.bonus.BonusViewModel
 import com.hover.stax.databinding.ActivityMainBinding
 import com.hover.stax.presentation.financial_tips.FinancialTipsFragment
 import com.hover.stax.login.AbstractGoogleAuthActivity
-import com.hover.stax.notifications.PushNotificationTopicsInterface
 import com.hover.stax.requests.NewRequestViewModel
 import com.hover.stax.requests.REQUEST_LINK
 import com.hover.stax.requests.RequestSenderInterface
@@ -28,7 +27,7 @@ import com.hover.stax.views.StaxDialog
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import timber.log.Timber
 
-class MainActivity : AbstractGoogleAuthActivity(), BiometricChecker.AuthListener, PushNotificationTopicsInterface, RequestSenderInterface {
+class MainActivity : AbstractGoogleAuthActivity(), BiometricChecker.AuthListener, RequestSenderInterface {
 
     private val transferViewModel: TransferViewModel by viewModel()
     private val requestViewModel: NewRequestViewModel by viewModel()
