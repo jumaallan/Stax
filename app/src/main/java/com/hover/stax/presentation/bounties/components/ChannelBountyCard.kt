@@ -30,7 +30,7 @@ fun ChannelBountyCard(channelBounty: ChannelBounties, bountyViewModel: BountyVie
             )
 
             channelBounty.bounties.forEach {
-                BountyLi(bounty = it, bountyViewModel)
+                BountyCard(bounty = it, bountyViewModel)
             }
         }
 }

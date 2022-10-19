@@ -49,11 +49,21 @@ class TransactionHistoryFragment : Fragment(), TransactionHistoryAdapter.SelectL
 
     private fun initToolbar() {
         binding.toolbar.setContent {
-            StaxTheme { TopBar(title = R.string.nav_history) { dest -> navigateTo(dest) } }
+            StaxTheme { Toolbar() }
         }
     }
 
-    private fun navigateTo(dest: Int) = findNavController().navigate(dest)
+    @Composable
+    private fun Toolbar() {
+        val hasNetwork by NetworkMonitor.StateLiveData.get().observeAsState(initial = false)
+        TopBar(
+            title = R.string.nav_history, isInternetConnected = hasNetwork,
+            { navigate(TransactionHistoryFragmentDirections.actionGlobalNavigationSettings()) },
+            { navigate(TransactionHistoryFragmentDirections.actionGlobalRewardsFragment()) }
+        )
+    }
+
+    private fun navigate(navDirections: NavDirections) = NavUtil.navigate(findNavController(), navDirections)
 
     private fun initRecyclerView() {
         binding.transactionsRecycler.apply {

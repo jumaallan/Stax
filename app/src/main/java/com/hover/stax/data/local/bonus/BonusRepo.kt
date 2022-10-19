@@ -7,8 +7,7 @@ class BonusRepo(val db: AppDatabase) {
 
     private val dao = db.bonusDao()
 
-    suspend fun bonuses() = dao.bonuses()
-    val collectBonuses = dao.collectBonuses
+    val bonuses = dao.bonuses
 
     fun save(bonus: Bonus) = dao.insert(bonus)
 

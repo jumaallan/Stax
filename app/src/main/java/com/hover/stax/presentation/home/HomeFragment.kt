@@ -78,8 +78,7 @@ class HomeFragment : Fragment(), FinancialTipClickInterface, BalanceTapListener 
                 homeClickFunctions = getHomeClickFunctions(),
                 tipInterface = this@HomeFragment,
                 balanceTapListener = this@HomeFragment,
-                homeViewModel = homeViewModel,
-                navTo = { dest -> navigateTo(dest) }
+                homeViewModel = homeViewModel
             )
         }
     }
@@ -128,15 +127,16 @@ class HomeFragment : Fragment(), FinancialTipClickInterface, BalanceTapListener 
 
     private fun navigateTo(navDirections: NavDirections) = (requireActivity() as MainActivity).checkPermissionsAndNavigate(navDirections)
 
-    private fun navigateTo(dest: Int) = findNavController().navigate(dest)
-
     override fun onTipClicked(tipId: String?) {
         val destination = HomeFragmentDirections.actionNavigationHomeToWellnessFragment().apply { setTipId(tipId) }
         NavUtil.navigate(findNavController(), destination)
     }
 
     override fun onTapBalanceRefresh(account: Account?) {
-        balancesViewModel.requestBalance(account)
+        if (account != null) {
+            AnalyticsUtil.logAnalyticsEvent(getString(R.string.refresh_balance), requireContext())
+            balancesViewModel.requestBalance(account)
+        }
     }
 
     override fun onTapBalanceDetail(accountId: Int) {

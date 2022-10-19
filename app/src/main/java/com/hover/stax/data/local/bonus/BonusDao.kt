@@ -7,11 +7,8 @@ import kotlinx.coroutines.flow.Flow
 @Dao
 interface BonusDao {
 
-    @Query("SELECT * FROM bonuses")
-    suspend fun bonuses(): List<Bonus>
-
     @get:Query("SELECT * FROM bonuses")
-    val collectBonuses: Flow<List<Bonus>>
+    val bonuses: Flow<List<Bonus>>
 
     @Query("SELECT COUNT(user_channel) FROM bonuses WHERE hni_list != '0'")
     suspend fun bonusCountWithHnis(): Int

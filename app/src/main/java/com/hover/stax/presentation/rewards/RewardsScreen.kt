@@ -30,7 +30,7 @@ fun RewardsScreen() {
         ) {
             Scaffold(
                 topBar = {
-                    TopBar(title = R.string.nav_earn, {})
+                    TopBar(title = R.string.nav_earn, isInternetConnected = false, {}, {})
                 },
                 content = { padding ->
                     LazyColumn(
